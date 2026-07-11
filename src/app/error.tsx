@@ -1,0 +1,1 @@
+"use client";export default function ErrorPage({reset}:{reset:()=>void}){return <section className="system-page shell"><p className="kicker">Something interrupted the page</p><h1>That did not work as expected.</h1><p className="lede">Your information has not been submitted. Try loading this page again.</p><button className="button" onClick={reset}>Try again →</button></section>}

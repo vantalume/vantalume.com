@@ -1,0 +1,1 @@
+export default function Loading(){return <section className="system-page shell" aria-live="polite"><p className="kicker">Loading</p><h1>Bringing the next page into view.</h1><div className="loading-line"/></section>}

@@ -1,0 +1,37 @@
+{
+  "name": "vantalume-web",
+  "version": "1.0.0",
+  "private": true,
+  "overrides": { "postcss": "^8.5.16" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@vercel/analytics": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "resend": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "latest",
+    "@playwright/test": "latest",
+    "@testing-library/react": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "jsdom": "latest",
+    "postcss": "^8.5.16",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}

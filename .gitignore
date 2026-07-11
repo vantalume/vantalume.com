@@ -1,0 +1,30 @@
+node_modules
+.next
+out
+coverage
+playwright-report
+test-results
+.vercel
+.turbo
+.cache
+.tmp
+tmp
+
+# Local configuration and secrets
+.env*
+!.env.example
+
+# Generated research, reports and logs
+.firecrawl
+*.log
+*.tsbuildinfo
+.lighthouse.json
+
+# Editor and operating-system files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo

@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Arrow } from "@/components/icons";
+import { CTA, PageIntro } from "@/components/ui";
+import { services } from "@/lib/site";
+
+export const metadata: Metadata = { title: "Digital services", description: "Website, app, SaaS, AI automation and prototyping services designed around a clear business case.", alternates: { canonical: "/services" } };
+
+export default function ServicesPage() { return <><PageIntro eyebrow="Services" title="Strategy, design and engineering without the hand-offs." intro="Choose a known need, or start with the problem and let us identify the most useful route. Every engagement is shaped around an outcome, a decision and a clear definition of done."/><section className="section shell"><div className="service-cards">{services.map((x,i)=><Link key={x.slug} href={`/services/${x.slug}`} className="service-card"><span>0{i+1}</span><h2>{x.title}</h2><p className="standfirst">{x.eyebrow}</p><p>{x.intro}</p><b>Explore service <Arrow /></b></Link>)}</div></section><section className="split-panel"><div className="shell split-inner"><div><p className="kicker">Ways to begin</p><h2>Start at the level of certainty you have.</h2></div><div className="principles"><article><span>01</span><h3>Fit call · free</h3><p>A focused 20-minute conversation to establish whether there is a sensible fit. No speculative workshop.</p></article><article><span>02</span><h3>Opportunity Mapping Sprint · from £1,500</h3><p>A bounded paid engagement that ends with priorities, risks and a recommended path.</p></article><article><span>03</span><h3>Design and build · scoped</h3><p>A fixed proposal where the outcome is definable; staged delivery where uncertainty needs active management.</p></article></div></div></section><CTA /></> }

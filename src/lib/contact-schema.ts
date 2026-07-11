@@ -1,0 +1,3 @@
+import { z } from "zod";
+export const contactSchema=z.object({name:z.string().trim().min(2).max(100),email:z.string().trim().email().max(254),company:z.string().trim().max(150).optional().default(""),need:z.string().trim().min(2).max(120),details:z.string().trim().min(20).max(3000),budget:z.string().trim().max(80).optional().default(""),timeline:z.string().trim().max(100).optional().default(""),url:z.union([z.literal(""),z.string().url().max(500)]).optional().default(""),website:z.string().max(0).optional().default(""),consent:z.literal("yes"),startedAt:z.coerce.number()});
+export type ContactInput=z.infer<typeof contactSchema>;
