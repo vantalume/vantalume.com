@@ -17,6 +17,8 @@ export type ConciergeLead = {
   message: string;
   transcript: Array<{ role: "visitor" | "assistant"; text: string }>;
   status: LeadStatus;
+  source: string;
+  marketingConsent: boolean;
 };
 
 declare global {
@@ -67,6 +69,11 @@ async function ensureLeadTable() {
       INDEX idx_concierge_leads_status (status)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   `);
+  await getPool().execute(`
+    ALTER TABLE concierge_leads
+      ADD COLUMN IF NOT EXISTS marketing_consent TINYINT(1) NOT NULL DEFAULT 0,
+      ADD COLUMN IF NOT EXISTS marketing_consented_at DATETIME(3) NULL
+  `);
 }
 
 export async function saveConciergeLead(input: {
@@ -79,6 +86,8 @@ export async function saveConciergeLead(input: {
   preferredContact: "email" | "phone" | "whatsapp" | "either";
   message: string;
   transcript: Array<{ role: "visitor" | "assistant"; text: string }>;
+  source?: string;
+  marketingConsent?: boolean;
 }) {
   global.vantalumeLeadTableReady ??= ensureLeadTable().catch((error) => {
     global.vantalumeLeadTableReady = undefined;
@@ -88,11 +97,12 @@ export async function saveConciergeLead(input: {
 
   const [result] = await getPool().execute<ResultSetHeader>(
     `INSERT INTO concierge_leads
-      (id, created_at, source, name, company, email, phone, preferred_contact, message, transcript, consented_at)
-     VALUES (?, ?, 'website-concierge', ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (id, created_at, source, name, company, email, phone, preferred_contact, message, transcript, consented_at, marketing_consent, marketing_consented_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       input.id,
       input.createdAt,
+      input.source || "website-concierge",
       input.name,
       input.company,
       input.email,
@@ -101,6 +111,8 @@ export async function saveConciergeLead(input: {
       input.message,
       JSON.stringify(input.transcript),
       input.createdAt,
+      input.marketingConsent ? 1 : 0,
+      input.marketingConsent ? input.createdAt : null,
     ],
   );
 
@@ -118,6 +130,8 @@ type LeadRow = RowDataPacket & {
   message: string;
   transcript: string | ConciergeLead["transcript"];
   status: LeadStatus;
+  source: string;
+  marketing_consent: number;
 };
 
 function mapLead(row: LeadRow): ConciergeLead {
@@ -135,6 +149,8 @@ function mapLead(row: LeadRow): ConciergeLead {
         ? JSON.parse(row.transcript)
         : row.transcript,
     status: row.status,
+    source: row.source,
+    marketingConsent: Boolean(row.marketing_consent),
   };
 }
 
@@ -161,7 +177,7 @@ export async function listConciergeLeads(options?: {
   }
 
   const [rows] = await getPool().execute<LeadRow[]>(
-    `SELECT id, created_at, name, company, email, phone, preferred_contact, message, transcript, status
+    `SELECT id, created_at, source, name, company, email, phone, preferred_contact, message, transcript, status, marketing_consent
      FROM concierge_leads
      ${clauses.length ? `WHERE ${clauses.join(" AND ")}` : ""}
      ORDER BY created_at DESC

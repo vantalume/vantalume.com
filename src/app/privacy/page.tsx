@@ -9,7 +9,7 @@ export default function Privacy() {
   return (
     <Legal
       title="Privacy Policy"
-      reviewed="11 July 2026"
+      reviewed="12 July 2026"
       notice="Owner action: this policy is a carefully prepared launch draft, but must be reviewed by a qualified UK privacy professional before production use."
     >
       <h2>Who controls your information</h2>
@@ -27,6 +27,12 @@ export default function Privacy() {
         number you voluntarily provide. Server and hosting providers may process
         limited technical logs needed for security and reliability.
       </p>
+      <p>
+        If you request a Digital Opportunity Scorecard, we save your answers,
+        score, recommendations and the contact details you provide so we can
+        deliver the requested report. Receiving that report does not subscribe
+        you to marketing.
+      </p>
       <h2>Why we use it</h2>
       <p>
         We use enquiry information to respond, assess fit, prepare requested
@@ -35,6 +41,14 @@ export default function Privacy() {
         business enquiries, steps at your request before a contract, legal
         obligation for required records, and consent where specifically
         requested.
+      </p>
+      <h2>Optional marketing</h2>
+      <p>
+        We only send the Digital Clarity Brief when you actively select the
+        optional marketing checkbox. We record that choice as consent. You can
+        withdraw it at any time by replying to an email or contacting{" "}
+        <a href="mailto:contact@vantalume.com">contact@vantalume.com</a>. This
+        does not affect service or transactional messages you requested.
       </p>
       <h2>Sharing and transfers</h2>
       <p>

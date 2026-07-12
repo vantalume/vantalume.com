@@ -83,7 +83,7 @@ export default async function EnquiriesPage({
             <>
               <header className="admin-dossier-head">
                 <div>
-                  <p className="admin-eyebrow">Lead {selected.id.slice(0, 8)}</p>
+                  <p className="admin-eyebrow">{selected.source === "opportunity-scorecard" ? "Scorecard lead" : "Conversation"} {selected.id.slice(0, 8)}</p>
                   <h2>{selected.name}</h2>
                   <p>{selected.company || "Independent enquiry"} · {date(selected.createdAt)}</p>
                 </div>
@@ -101,7 +101,7 @@ export default async function EnquiriesPage({
                 {selected.email && <a href={`mailto:${selected.email}?subject=${encodeURIComponent("Your Vantalume enquiry")}`}>Email <b>{selected.email}</b></a>}
                 {selected.phone && <a href={`tel:${selected.phone}`}>Call <b>{selected.phone}</b></a>}
                 {whatsapp && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer">WhatsApp <b>Open chat ↗</b></a>}
-                <span>Prefers <b>{selected.preferredContact}</b></span>
+                <span>Marketing <b>{selected.marketingConsent ? "Consented" : "Not opted in"}</b></span>
               </section>
 
               <section className="admin-brief">
