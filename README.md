@@ -43,7 +43,7 @@ The route uses shared client/server constraints, server-side Zod validation, HTM
 ## Owner launch checklist
 
 1. **Business identity:** add the registered legal name, legal form, company number and postal address to the Privacy Policy and Terms. Required for transparent contracting and privacy notices. Obtain solicitor/privacy-professional approval and verify the final pages in production.
-2. **Email:** create/choose the Resend account; verify `vantalume.com` using the DNS records Resend provides; create `hello@vantalume.com`; add the three server variables; submit a valid test and confirm receipt/reply routing; submit invalid data and confirm no email is sent.
+2. **Email:** create/choose the Resend account; verify `vantalume.com` using the DNS records Resend provides; create `contact@vantalume.com`; add the three server variables; submit a valid test and confirm receipt/reply routing; submit invalid data and confirm no email is sent.
 3. **Domain and hosting:** deploy a preview; add `vantalume.com`; configure the DNS records shown by the host; make `https://vantalume.com` canonical; redirect HTTP and `www`; verify TLS and every security header.
 4. **Analytics decision:** either leave analytics disabled (valid privacy-first launch) or approve Vercel Analytics, set the variable, verify that no analytics request occurs before consent, and update the production cookie register.
 5. **Legal review:** have qualified UK professionals review Privacy, Cookies, Terms, retention periods, processor list, transfer safeguards and commercial agreement language. Clearly marked draft notices must remain until approval, then be replaced with approved wording.

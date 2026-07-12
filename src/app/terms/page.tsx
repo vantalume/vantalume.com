@@ -1,1 +1,57 @@
-import type { Metadata } from "next";import { Legal } from "@/components/legal";export const metadata:Metadata={title:"Website Terms",description:"Terms for using the Vantalume website.",alternates:{canonical:"/terms"}};export default function Terms(){return <Legal title="Website Terms" reviewed="11 July 2026" notice="Owner action: these website terms are a launch draft and require review by a qualified solicitor before production use."><h2>About these terms</h2><p>These terms govern use of vantalume.com. Before launch, replace this paragraph with the owner’s full registered business details and jurisdiction-approved contact information.</p><h2>Information, not advice</h2><p>Website content and interactive tools provide general information. They are not a quotation, guarantee, legal advice, financial advice or a substitute for discovery of your circumstances. Project work begins only under a separate written agreement.</p><h2>Permitted use</h2><p>You may view and share links to public pages for lawful business and personal purposes. You must not interfere with operation, test security without written permission, submit unlawful material, impersonate another person or use automated access in a way that degrades the service.</p><h2>Intellectual property</h2><p>Unless stated otherwise, website copy, visual design and original materials belong to Vantalume or its licensors. You may not reproduce substantial parts commercially without permission. Third-party names remain the property of their respective owners.</p><h2>Availability and liability</h2><p>We aim to keep the website accurate and available but do not promise uninterrupted access. Nothing in these terms excludes liability that cannot lawfully be excluded. The final limitation language and governing law must be approved by a solicitor before launch.</p><h2>Contact</h2><p>Questions can be sent to <a href="mailto:hello@vantalume.com">hello@vantalume.com</a>.</p></Legal>}
+import type { Metadata } from "next";
+import { Legal } from "@/components/legal";
+export const metadata: Metadata = {
+  title: "Website Terms",
+  description: "Terms for using the Vantalume website.",
+  alternates: { canonical: "/terms" },
+};
+export default function Terms() {
+  return (
+    <Legal
+      title="Website Terms"
+      reviewed="11 July 2026"
+      notice="Owner action: these website terms are a launch draft and require review by a qualified solicitor before production use."
+    >
+      <h2>About these terms</h2>
+      <p>
+        These terms govern use of vantalume.com. Before launch, replace this
+        paragraph with the owner’s full registered business details and
+        jurisdiction-approved contact information.
+      </p>
+      <h2>Information, not advice</h2>
+      <p>
+        Website content and interactive tools provide general information. They
+        are not a quotation, guarantee, legal advice, financial advice or a
+        substitute for discovery of your circumstances. Project work begins only
+        under a separate written agreement.
+      </p>
+      <h2>Permitted use</h2>
+      <p>
+        You may view and share links to public pages for lawful business and
+        personal purposes. You must not interfere with operation, test security
+        without written permission, submit unlawful material, impersonate
+        another person or use automated access in a way that degrades the
+        service.
+      </p>
+      <h2>Intellectual property</h2>
+      <p>
+        Unless stated otherwise, website copy, visual design and original
+        materials belong to Vantalume or its licensors. You may not reproduce
+        substantial parts commercially without permission. Third-party names
+        remain the property of their respective owners.
+      </p>
+      <h2>Availability and liability</h2>
+      <p>
+        We aim to keep the website accurate and available but do not promise
+        uninterrupted access. Nothing in these terms excludes liability that
+        cannot lawfully be excluded. The final limitation language and governing
+        law must be approved by a solicitor before launch.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        Questions can be sent to{" "}
+        <a href="mailto:contact@vantalume.com">contact@vantalume.com</a>.
+      </p>
+    </Legal>
+  );
+}

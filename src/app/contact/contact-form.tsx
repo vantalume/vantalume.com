@@ -32,7 +32,7 @@ export function ContactForm() {
       setMessage(
         err instanceof Error
           ? err.message
-          : "We could not send your enquiry. Please email hello@vantalume.com.",
+          : "We could not send your enquiry. Please email contact@vantalume.com.",
       );
     }
   }
