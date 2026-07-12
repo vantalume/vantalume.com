@@ -39,6 +39,8 @@ Optional:
 Required to accept guided-assistant leads:
 
 - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`: Hostinger MySQL connection used to durably store concierge leads and transcripts. The `concierge_leads` table is created automatically on the first valid enquiry.
+- `ADMIN_DASHBOARD_PASSWORD`: password for the private enquiry desk at `/admin/enquiries`.
+- `ADMIN_SESSION_SECRET`: random secret of at least 32 characters used to sign 12-hour, HTTP-only admin sessions.
 
 The assistant fails closed when persistence is unavailable: it shows `contact@vantalume.com` instead of claiming the lead was saved. Resend notification is attempted only after persistence succeeds and is not the system of record.
 

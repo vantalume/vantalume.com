@@ -1,4 +1,23 @@
-import mysql, { type Pool, type ResultSetHeader } from "mysql2/promise";
+import mysql, {
+  type Pool,
+  type ResultSetHeader,
+  type RowDataPacket,
+} from "mysql2/promise";
+
+export type LeadStatus = "new" | "contacted" | "qualified" | "closed";
+
+export type ConciergeLead = {
+  id: string;
+  createdAt: Date;
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  preferredContact: "email" | "phone" | "whatsapp" | "either";
+  message: string;
+  transcript: Array<{ role: "visitor" | "assistant"; text: string }>;
+  status: LeadStatus;
+};
 
 declare global {
   var vantalumeDatabasePool: Pool | undefined;
@@ -86,4 +105,79 @@ export async function saveConciergeLead(input: {
   );
 
   if (result.affectedRows !== 1) throw new Error("Lead was not inserted");
+}
+
+type LeadRow = RowDataPacket & {
+  id: string;
+  created_at: Date;
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  preferred_contact: ConciergeLead["preferredContact"];
+  message: string;
+  transcript: string | ConciergeLead["transcript"];
+  status: LeadStatus;
+};
+
+function mapLead(row: LeadRow): ConciergeLead {
+  return {
+    id: row.id,
+    createdAt: row.created_at,
+    name: row.name,
+    company: row.company,
+    email: row.email,
+    phone: row.phone,
+    preferredContact: row.preferred_contact,
+    message: row.message,
+    transcript:
+      typeof row.transcript === "string"
+        ? JSON.parse(row.transcript)
+        : row.transcript,
+    status: row.status,
+  };
+}
+
+export async function listConciergeLeads(options?: {
+  status?: LeadStatus | "all";
+  query?: string;
+}) {
+  global.vantalumeLeadTableReady ??= ensureLeadTable().catch((error) => {
+    global.vantalumeLeadTableReady = undefined;
+    throw error;
+  });
+  await global.vantalumeLeadTableReady;
+
+  const clauses: string[] = [];
+  const values: string[] = [];
+  if (options?.status && options.status !== "all") {
+    clauses.push("status = ?");
+    values.push(options.status);
+  }
+  if (options?.query) {
+    clauses.push("(name LIKE ? OR company LIKE ? OR email LIKE ? OR phone LIKE ?)");
+    const query = `%${options.query.slice(0, 100)}%`;
+    values.push(query, query, query, query);
+  }
+
+  const [rows] = await getPool().execute<LeadRow[]>(
+    `SELECT id, created_at, name, company, email, phone, preferred_contact, message, transcript, status
+     FROM concierge_leads
+     ${clauses.length ? `WHERE ${clauses.join(" AND ")}` : ""}
+     ORDER BY created_at DESC
+     LIMIT 200`,
+    values,
+  );
+  return rows.map(mapLead);
+}
+
+export async function updateConciergeLeadStatus(
+  id: string,
+  status: LeadStatus,
+) {
+  const [result] = await getPool().execute<ResultSetHeader>(
+    "UPDATE concierge_leads SET status = ? WHERE id = ? LIMIT 1",
+    [status, id],
+  );
+  return result.affectedRows === 1;
 }
