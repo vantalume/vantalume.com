@@ -13,5 +13,11 @@ export async function POST(request: NextRequest) {
   const status = String(form.get("status") || "") as LeadStatus;
   if (!/^[0-9a-f-]{36}$/i.test(id) || !statuses.has(status)) return NextResponse.json({ message: "Invalid update" }, { status: 400 });
   await updateConciergeLeadStatus(id, status);
-  return NextResponse.redirect(new URL(`/admin/enquiries?lead=${encodeURIComponent(id)}`, request.url), 303);
+  return NextResponse.redirect(
+    new URL(
+      `/admin/enquiries?lead=${encodeURIComponent(id)}`,
+      process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin,
+    ),
+    303,
+  );
 }
