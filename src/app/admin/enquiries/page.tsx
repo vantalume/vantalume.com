@@ -87,7 +87,7 @@ export default async function EnquiriesPage({
                   <h2>{selected.name}</h2>
                   <p>{selected.company || "Independent enquiry"} · {date(selected.createdAt)}</p>
                 </div>
-                <form action="/api/admin/leads/status" method="post">
+                <form action="/admin/enquiries/update" method="post">
                   <input type="hidden" name="id" value={selected.id} />
                   <label htmlFor="lead-status">Pipeline status</label>
                   <select id="lead-status" name="status" defaultValue={selected.status}>
