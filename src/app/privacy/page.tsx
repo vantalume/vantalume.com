@@ -22,8 +22,10 @@ export default function Privacy() {
       <p>
         When you contact us, we receive the information you choose to provide,
         such as your name, work email, organisation, project needs, timing and
-        budget range. Server and hosting providers may process limited technical
-        logs needed for security and reliability.
+        budget range. If you use the guided enquiry assistant, we also save the
+        conversation transcript, your preferred response method and any phone
+        number you voluntarily provide. Server and hosting providers may process
+        limited technical logs needed for security and reliability.
       </p>
       <h2>Why we use it</h2>
       <p>
@@ -53,8 +55,8 @@ export default function Privacy() {
         Depending on applicable law, you may request access, correction,
         deletion, restriction, portability or objection. You may complain to the
         UK Information Commissioner’s Office. Contact{" "}
-        <a href="mailto:contact@vantalume.com">contact@vantalume.com</a> to make a
-        request.
+        <a href="mailto:contact@vantalume.com">contact@vantalume.com</a> to make
+        a request.
       </p>
       <h2>Security and changes</h2>
       <p>

@@ -36,6 +36,13 @@ Optional:
 
 - `NEXT_PUBLIC_ANALYTICS_ENABLED=true`: exposes a consent prompt and loads Vercel Analytics only after acceptance. Keep `false` until the owner approves the provider and legal wording.
 
+Required to accept guided-assistant leads:
+
+- `LEAD_WEBHOOK_URL`: HTTPS endpoint that durably stores the JSON lead and transcript before returning HTTP 2xx.
+- `LEAD_WEBHOOK_SECRET`: optional shared bearer secret sent in the `Authorization` header.
+
+The assistant fails closed when persistence is unavailable: it shows `contact@vantalume.com` instead of claiming the lead was saved. Resend notification is attempted only after persistence succeeds and is not the system of record.
+
 ## Contact security
 
 The route uses shared client/server constraints, server-side Zod validation, HTML escaping, a hidden honeypot, minimum completion time, generic provider errors and a lightweight per-instance rate limit. At higher traffic, replace the in-memory limit with a distributed store and consider a privacy-conscious challenge after measured abuse. Do not weaken server validation.

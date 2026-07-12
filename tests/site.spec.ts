@@ -102,7 +102,39 @@ test("contact form exposes validation and provider recovery", async ({
   await page.waitForTimeout(2600);
   await page.getByRole("button", { name: "Send enquiry" }).click();
   await expect(page.getByText("Submission not sent")).toBeVisible();
-    await expect(page.locator(".error-summary")).toContainText(
-      "contact@vantalume.com",
-    );
+  await expect(page.locator(".error-summary")).toContainText(
+    "contact@vantalume.com",
+  );
+});
+
+test("guided assistant answers a question and validates handoff details", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Ask Vantalume", exact: true })
+    .click();
+  await expect(
+    page.getByRole("dialog", { name: "Ask Vantalume", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Starting prices", exact: true })
+    .click();
+  await expect(
+    page.getByText(/Opportunity Mapping Sprints start from/),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Pass an enquiry to a person →", exact: true })
+    .click();
+  await page.locator("input[name=name]").fill("Ada Lovelace");
+  await page
+    .locator("textarea[name=message]")
+    .fill("We need help mapping an automation opportunity.");
+  await page.locator("input[name=consent]").check();
+  await page
+    .getByRole("button", { name: "Save and hand over →", exact: true })
+    .click();
+  await expect(
+    page.getByText("Enter an email address or phone number so we can respond."),
+  ).toBeVisible();
 });
