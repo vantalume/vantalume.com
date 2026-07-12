@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 type Message = { role: "visitor" | "assistant"; text: string };
 
@@ -49,6 +50,7 @@ export function ChatAssistant() {
   function openAssistant() {
     setStartedAt(Date.now());
     setOpen(true);
+    trackAnalyticsEvent("chat_open");
   }
 
   function answer(topic: keyof typeof answers, label: string) {
@@ -84,6 +86,7 @@ export function ChatAssistant() {
         throw new Error(body.message || "The conversation could not be saved.");
       setLeadId(body.leadId);
       setState("success");
+      trackAnalyticsEvent("generate_lead", { method: "guided_enquiry" });
       form.reset();
     } catch (submissionError) {
       setState("error");

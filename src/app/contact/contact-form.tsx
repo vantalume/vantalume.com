@@ -1,6 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useRef, useState } from "react";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 type State = "idle" | "submitting" | "success" | "error";
 export function ContactForm() {
@@ -26,6 +27,7 @@ export function ContactForm() {
       if (!res.ok)
         throw new Error(body.message || "We could not send your enquiry.");
       setState("success");
+      trackAnalyticsEvent("generate_lead", { method: "contact_form" });
       form.reset();
     } catch (err) {
       setState("error");

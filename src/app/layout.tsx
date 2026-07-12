@@ -74,6 +74,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const analytics = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   return (
     <html
       lang="en"
@@ -90,7 +91,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-        <AnalyticsConsent enabled={analytics} />
+        <AnalyticsConsent
+          enabled={analytics || Boolean(measurementId)}
+          measurementId={measurementId}
+        />
       </body>
     </html>
   );

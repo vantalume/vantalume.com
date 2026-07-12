@@ -1,11 +1,18 @@
 "use client";
 
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import { useEffect, useState } from "react";
 
 type Choice = "unknown" | "accepted" | "declined";
 
-export function AnalyticsConsent({ enabled }: { enabled: boolean }) {
+export function AnalyticsConsent({
+  enabled,
+  measurementId,
+}: {
+  enabled: boolean;
+  measurementId?: string;
+}) {
   const [choice, setChoice] = useState<Choice>("unknown");
 
   useEffect(() => {
@@ -26,7 +33,29 @@ export function AnalyticsConsent({ enabled }: { enabled: boolean }) {
 
   return (
     <>
-      {choice === "accepted" && <Analytics />}
+      {choice === "accepted" && (
+        <>
+          <Analytics />
+          {measurementId && (
+            <>
+              <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+                strategy="afterInteractive"
+              />
+              <Script id="vantalume-google-analytics" strategy="afterInteractive">
+                {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+gtag('js', new Date());
+gtag('config', '${measurementId}', {
+  allow_google_signals: false,
+  allow_ad_personalization_signals: false
+});`}
+              </Script>
+            </>
+          )}
+        </>
+      )}
       {choice === "unknown" && (
         <aside className="consent-banner" aria-label="Analytics preference">
           <div>
