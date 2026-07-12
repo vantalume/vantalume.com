@@ -38,8 +38,7 @@ Optional:
 
 Required to accept guided-assistant leads:
 
-- `LEAD_WEBHOOK_URL`: HTTPS endpoint that durably stores the JSON lead and transcript before returning HTTP 2xx.
-- `LEAD_WEBHOOK_SECRET`: optional shared bearer secret sent in the `Authorization` header.
+- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`: Hostinger MySQL connection used to durably store concierge leads and transcripts. The `concierge_leads` table is created automatically on the first valid enquiry.
 
 The assistant fails closed when persistence is unavailable: it shows `contact@vantalume.com` instead of claiming the lead was saved. Resend notification is attempted only after persistence succeeds and is not the system of record.
 

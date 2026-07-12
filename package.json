@@ -2,8 +2,12 @@
   "name": "vantalume-web",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": "22.x" },
-  "overrides": { "postcss": "^8.5.16" },
+  "engines": {
+    "node": "22.x"
+  },
+  "overrides": {
+    "postcss": "^8.5.16"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,6 +19,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "latest",
+    "mysql2": "^3.22.6",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",

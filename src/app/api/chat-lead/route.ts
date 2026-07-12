@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { chatLeadSchema } from "@/lib/chat-lead-schema";
+import { saveConciergeLead } from "@/lib/database";
 
 const attempts = new Map<string, { count: number; reset: number }>();
 
@@ -72,37 +73,21 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!process.env.LEAD_WEBHOOK_URL) {
-    console.error("Lead persistence is not configured. See .env.example.");
-    return NextResponse.json(
-      {
-        message:
-          "Lead saving is temporarily unavailable. Please email contact@vantalume.com.",
-      },
-      { status: 503 },
-    );
-  }
-
   const leadId = crypto.randomUUID();
-  const createdAt = new Date().toISOString();
-  const payload = { leadId, createdAt, source: "website-concierge", ...lead };
+  const createdAt = new Date();
 
   try {
-    const persistenceResponse = await fetch(process.env.LEAD_WEBHOOK_URL, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        ...(process.env.LEAD_WEBHOOK_SECRET
-          ? { authorization: `Bearer ${process.env.LEAD_WEBHOOK_SECRET}` }
-          : {}),
-      },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(8000),
+    await saveConciergeLead({
+      id: leadId,
+      createdAt,
+      name: lead.name,
+      company: lead.company,
+      email: lead.email,
+      phone: lead.phone,
+      preferredContact: lead.preferredContact,
+      message: lead.message,
+      transcript: lead.transcript,
     });
-
-    if (!persistenceResponse.ok) {
-      throw new Error(`Persistence returned ${persistenceResponse.status}`);
-    }
   } catch (error) {
     console.error(
       "Lead persistence failed",
