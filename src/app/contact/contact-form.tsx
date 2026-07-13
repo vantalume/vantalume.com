@@ -102,6 +102,7 @@ export function ContactForm() {
           <option>Mobile application</option>
           <option>AI automation</option>
           <option>AI consulting or prototype</option>
+          {route !== "AI Video Production" && <option>AI Video Production</option>}
           <option>Not sure yet</option>
         </select>
       </div>

@@ -8,6 +8,28 @@ export const site = {
 
 export const services = [
   {
+    slug: "ai-video-production",
+    nav: "AI video production",
+    title: "AI video production",
+    eyebrow: "Short-form video built for the way people watch now.",
+    intro:
+      "Professional AI-powered product videos, social content and advertisements—shaped through scripting, editing, captions, voice-over and your brand assets.",
+    outcomes: [
+      "Platform-ready short-form creative",
+      "A clear concept, script and storyboard",
+      "Adaptable formats for campaigns and markets",
+    ],
+    process: [
+      "Share the product, audience and objective",
+      "Agree the concept, script and storyboard",
+      "Create, animate and edit the scenes",
+      "Review and deliver platform-ready videos",
+    ],
+    fit: "Startups, e-commerce brands and small businesses that need credible video content without a traditional production footprint.",
+    starting:
+      "Every engagement is shaped around the objective, source material, formats, production requirements and delivery plan.",
+  },
+  {
     slug: "web-design-development",
     nav: "Websites",
     title: "Website design and development",

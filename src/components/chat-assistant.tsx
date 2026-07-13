@@ -2,13 +2,14 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 
 type Message = { role: "visitor" | "assistant"; text: string };
 
 const answers = {
   services:
-    "Vantalume designs and builds websites, web and mobile products, workflow automation and practical AI systems. We start with the business constraint before choosing the technology.",
+    "Vantalume designs and builds websites, web and mobile products, AI video content, workflow automation and practical AI systems. We start with the business constraint before choosing the technology.",
   pricing:
     "Focused websites typically start from £6,500. Opportunity Mapping Sprints start from £1,500, prototype sprints from £3,500, and production software is scoped after discovery.",
   process:
@@ -22,6 +23,8 @@ const initialMessage: Message = {
 };
 
 export function ChatAssistant() {
+  const pathname = usePathname();
+  const isVideoProductionPage = pathname === "/services/ai-video-production";
   const [open, setOpen] = useState(false);
   const [capturing, setCapturing] = useState(false);
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
@@ -145,7 +148,7 @@ export function ChatAssistant() {
 
             <div className="concierge-body">
               <div className="concierge-messages" aria-live="polite">
-                {messages.map((message, index) => (
+                {messages.filter((message) => !isVideoProductionPage || (!message.text.includes("£") && !message.text.toLowerCase().includes("starting prices"))).map((message, index) => (
                   <p
                     key={`${message.role}-${index}`}
                     className={`concierge-message ${message.role}`}
@@ -169,13 +172,13 @@ export function ChatAssistant() {
                     >
                       Services
                     </button>
-                    <button
+                    {!isVideoProductionPage && <button
                       onClick={() =>
                         answer("pricing", "What are the starting prices?")
                       }
                     >
                       Starting prices
-                    </button>
+                    </button>}
                     <button
                       onClick={() =>
                         answer("process", "How does a project work?")

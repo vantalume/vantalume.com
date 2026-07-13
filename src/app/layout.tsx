@@ -67,6 +67,7 @@ const schema = {
   serviceType: [
     "Website development",
     "Software development",
+    "AI video production",
     "AI automation",
     "AI consulting",
   ],
