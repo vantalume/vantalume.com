@@ -1,4 +1,8 @@
-type AnalyticsEvent = "generate_lead" | "chat_open";
+type AnalyticsEvent =
+  | "generate_lead"
+  | "chat_open"
+  | "video_start"
+  | "video_complete";
 
 declare global {
   interface Window {

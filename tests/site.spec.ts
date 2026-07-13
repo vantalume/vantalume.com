@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 const routes = [
   "/",
   "/services",
+  "/services/ai-video-production",
   "/services/web-design-development",
   "/services/web-applications-saas",
   "/services/mobile-app-development",
@@ -12,6 +13,10 @@ const routes = [
   "/opportunity-mapper",
   "/insights",
   "/insights/website-redesign-business-case",
+  "/insights/ai-automation-opportunity-scorecard",
+  "/insights/mvp-scope-without-regret",
+  "/insights/website-project-costs",
+  "/insights/ai-prototype-production-gap",
   "/about",
   "/contact",
   "/privacy",

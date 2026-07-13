@@ -59,18 +59,44 @@ export const metadata: Metadata = {
     description: "Professional AI marketing videos built around your audience, platforms and brand assets.",
     url: `${site.url}/services/ai-video-production`,
     images: [{ url: "/images/vantalume-social-share.png", width: 1200, height: 630, alt: "Vantalume AI video production" }],
+    videos: [{ url: "/video/vantalume-ai-video-showreel.mp4", width: 720, height: 1280, type: "video/mp4" }],
   },
 };
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "Service",
-  name: "AI Video Production",
-  serviceType: "AI video production",
-  provider: { "@type": "ProfessionalService", name: "Vantalume", url: site.url },
-  areaServed: "Worldwide",
-  url: `${site.url}/services/ai-video-production`,
-  description: "Short-form AI marketing videos, AI product videos, explainers and localised social content for startups, e-commerce brands and small businesses.",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${site.url}/services/ai-video-production#service`,
+      name: "AI Video Production",
+      serviceType: "AI video production",
+      provider: { "@type": "ProfessionalService", name: "Vantalume", url: site.url },
+      areaServed: "Worldwide",
+      url: `${site.url}/services/ai-video-production`,
+      description: "Short-form AI marketing videos, AI product videos, explainers and localised social content for startups, e-commerce brands and small businesses.",
+    },
+    {
+      "@type": "VideoObject",
+      "@id": `${site.url}/services/ai-video-production#showreel`,
+      name: "Vantalume AI Video Production Showreel",
+      description: "A 30-second vertical showreel demonstrating Vantalume's AI video production approach.",
+      thumbnailUrl: `${site.url}/images/video-production/showreel-poster.jpg`,
+      contentUrl: `${site.url}/video/vantalume-ai-video-showreel.mp4`,
+      embedUrl: `${site.url}/services/ai-video-production`,
+      uploadDate: "2026-07-13",
+      duration: "PT30S",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${site.url}/services/ai-video-production#faq`,
+      mainEntity: faqs.map(([question, answer]) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    },
+  ],
 };
 
 export default function AiVideoProductionPage() {
@@ -126,7 +152,7 @@ export default function AiVideoProductionPage() {
 
       <section className="cta shell video-final-cta">
         <div><p className="kicker">Start a conversation</p><h2>Ready to bring your idea to life?</h2></div>
-        <div><p>Tell us what you want to promote, and we’ll recommend the right video format and production approach.</p><p className="small">Share your idea with us, and we’ll arrange a conversation to understand your requirements.</p><div className="actions"><ButtonLink href={contactHref}>Start Your Video Project</ButtonLink></div></div>
+        <div><p>Tell us what you want to promote, and we’ll recommend the right video format and production approach.</p><p className="video-supporting-line">Share your idea with us, and we’ll arrange a conversation to understand your requirements.</p><div className="actions"><ButtonLink href={contactHref}>Start Your Video Project</ButtonLink></div></div>
       </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
