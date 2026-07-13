@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui";
+import { HeroShowreel } from "@/components/hero-showreel";
 import { VideoProjectCard } from "@/components/video-project-card";
 import { site } from "@/lib/site";
 
@@ -85,10 +86,7 @@ export default function AiVideoProductionPage() {
             <ButtonLink href="#how-it-works" secondary>See How It Works</ButtonLink>
           </div>
         </div>
-        <div className="video-hero-frame" aria-hidden="true">
-          <span>9:16</span><span>1:1</span><span>16:9</span>
-          <div><i /><i /><i /><b>Play</b></div>
-        </div>
+        <HeroShowreel />
       </section>
 
       <section className="section shell">
